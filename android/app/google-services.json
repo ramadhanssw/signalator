@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "878087795306",
+    "project_id": "signalator-70c5f",
+    "storage_bucket": "signalator-70c5f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878087795306:android:bb38e927f9d9ba195e9013",
+        "android_client_info": {
+          "package_name": "com.example.signalator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878087795306-01mjg7qrcmqm05fgs4kmnjo63p2ljalb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASROdIt5fuplICxVGXEKNtqOE8nLOuP8U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878087795306-01mjg7qrcmqm05fgs4kmnjo63p2ljalb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
