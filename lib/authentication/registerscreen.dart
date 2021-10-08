@@ -36,7 +36,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               alignment: Alignment.center,
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
               child: const Text(
-                "Kokiku",
+                "Signalator",
                 style: TextStyle(
                   color: Color(0xFF1A244C),
                   fontWeight: FontWeight.w500,
