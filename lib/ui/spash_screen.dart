@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:signalator/authentication/loginscreen.dart';
 import 'package:signalator/ui/homepage.dart';
 import 'dart:async';
 
@@ -27,10 +28,10 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/img/signalator.jpg',
-              height: 120,
-            ),
+            // Image.asset(
+            //   'assets/img/signalator.jpg',
+            //   height: 120,
+            // ),
             const SizedBox(
               height: 20,
             ),

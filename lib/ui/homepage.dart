@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:signalator/widget/card_widget.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -8,78 +10,43 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Signalator"),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              child: InkWell(
-                onTap: () {},
-                child: Card(
-                  child: Column(
-                    children: const [
-                      Icon(Icons.hail_outlined),
-                      Text("Sign To Text"),
-                    ],
-                  ),
-                ),
-              ),
+          children: const <Widget>[
+            SizedBox(height: 10),
+            cardWidget(
+              name: "Sign Languange Translator",
+              pictureUrl:
+                  "https://images.unsplash.com/photo-1502159212845-f31a19546a5d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
             ),
-            Expanded(
-              child: InkWell(
-                onTap: () {},
-                child: Card(
-                  child: Column(
-                    children: const [
-                      Icon(Icons.chat),
-                      Text("Text To Speech"),
-                    ],
-                  ),
-                ),
-              ),
+            SizedBox(height: 8),
+            cardWidget(
+              name: "Sign Languange Dictionary",
+              pictureUrl:
+                  "https://images.unsplash.com/photo-1524639064490-254e0a1db723?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
             ),
-            Expanded(
-              child: InkWell(
-                onTap: () {},
-                child: Card(
-                  child: Column(
-                    children: const [
-                      Icon(Icons.mic),
-                      Text("Speech To Text"),
-                    ],
-                  ),
-                ),
-              ),
+            SizedBox(height: 8),
+            cardWidget(
+              name: "Text To Speech",
+              pictureUrl:
+                  "https://images.unsplash.com/photo-1580130037321-446dba3cacc2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=726&q=80",
+            ),
+            SizedBox(height: 8),
+            cardWidget(
+              name: "Speech To Text",
+              pictureUrl:
+                  "https://images.unsplash.com/photo-1559223607-180d0c16c333?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80",
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Column(
-          children: <Widget>[
-            const Icon(Icons.add),
-            Text(
-              '$_counter',
-            ),
-          ],
-        ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
