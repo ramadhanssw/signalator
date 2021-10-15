@@ -17,7 +17,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Signalator"),
-        backgroundColor: Color(0xFF1A244C),
+        backgroundColor: const Color(0xFF1A244C),
         actions: <Widget>[
           IconButton(
             icon: const Icon(

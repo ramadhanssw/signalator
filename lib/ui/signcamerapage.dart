@@ -4,6 +4,8 @@ import 'package:signalator/widget/raisedbutton.dart';
 import 'package:tflite/tflite.dart';
 
 class CameraScreen extends StatefulWidget {
+  const CameraScreen({Key? key}) : super(key: key);
+
   @override
   _CameraScreenState createState() => _CameraScreenState();
 }
@@ -98,7 +100,7 @@ class _CameraScreenState extends State<CameraScreen> {
         backgroundColor: Colors.black,
         appBar: AppBar(
           title: const Text('Sign Language Translator'),
-          backgroundColor: Color(0xFF1A244C),
+          backgroundColor: const Color(0xFF1A244C),
           elevation: 0.0,
         ),
         body: cameraPreview());
@@ -162,7 +164,7 @@ class _CameraScreenState extends State<CameraScreen> {
                   ),
                   CircleAvatar(
                     radius: 25,
-                    backgroundColor: Color(0xFF1A244C),
+                    backgroundColor: const Color(0xFF1A244C),
                     child: IconButton(
                       onPressed: () {
                         setState(() {
@@ -186,7 +188,7 @@ class _CameraScreenState extends State<CameraScreen> {
                           }
                         });
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.camera,
                         size: 30,
                       ),
@@ -199,7 +201,7 @@ class _CameraScreenState extends State<CameraScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Card(
                 color: Colors.white.withOpacity(0.7),
                 child: Padding(

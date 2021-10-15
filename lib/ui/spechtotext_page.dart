@@ -37,8 +37,8 @@ class _sttPageState extends State<sttPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Speech To Text"),
-        backgroundColor: Color(0xFF1A244C),
+        title: const Text("Speech To Text"),
+        backgroundColor: const Color(0xFF1A244C),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Column(
@@ -54,7 +54,7 @@ class _sttPageState extends State<sttPage> {
             child: FloatingActionButton(
               onPressed: _listen,
               child: Icon(_isListening ? Icons.mic : Icons.mic_none),
-              backgroundColor: Color(0xFF1A244C),
+              backgroundColor: const Color(0xFF1A244C),
             ),
           ),
           Row(
@@ -76,12 +76,12 @@ class _sttPageState extends State<sttPage> {
               ),
             ],
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
         ],
       ),
       body: Column(
         children: [
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Text(
             "Confidence: ${(_confidence * 100.0).toStringAsFixed(1)}%",
             style: const TextStyle(

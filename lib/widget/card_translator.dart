@@ -27,7 +27,7 @@ class cardTranslator extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => CameraScreen(),
+                        builder: (context) => const CameraScreen(),
                       ),
                     );
                   },

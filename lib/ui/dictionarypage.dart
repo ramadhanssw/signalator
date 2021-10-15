@@ -13,14 +13,14 @@ class _dictionaryPageState extends State<dictionaryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sign Language Dictionary'),
-        backgroundColor: Color(0xFF1A244C),
+        title: const Text('Sign Language Dictionary'),
+        backgroundColor: const Color(0xFF1A244C),
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         child: GridView.builder(
           shrinkWrap: true,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 6 / 7,
             crossAxisCount: 3,
             crossAxisSpacing: 5.0,
@@ -35,10 +35,10 @@ class _dictionaryPageState extends State<dictionaryPage> {
                     "assets/img/sign-alphabet/${alphabet[index]}.png",
                     fit: BoxFit.cover,
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
-                    "${alphabet[index].toUpperCase()}",
-                    style: TextStyle(
+                    alphabet[index].toUpperCase(),
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 20.0,
                     ),

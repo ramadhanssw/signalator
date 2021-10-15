@@ -101,136 +101,134 @@ class _PickerScreenState extends State<PickerScreen> {
         backgroundColor: const Color(0xFF1A244C),
       ),
       body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 30,
-              ),
-              isImageLoaded
-                  ? Center(
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 200,
-                            width: 200,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: FileImage(File(pickedImage.path)),
-                                    fit: BoxFit.contain)),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Text(
-                            "Detected Letter: $detected",
-                            style: const TextStyle(fontSize: 25.0),
-                          ),
-                          Text(
-                            "Confidence: $confidence",
-                            style: const TextStyle(fontSize: 25.0),
-                          ),
-                          const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ElevatedButton(
-                                style: RaisedButtonStyle,
-                                child: const Text("Backspace"),
-                                onPressed: () {
-                                  if (sentence.isNotEmpty) {
-                                    setState(() {
-                                      sentence = sentence.substring(
-                                          0, sentence.length - 1);
-                                    });
-                                  } else {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => AlertDialog(
-                                        title: const Text("Blank Text"),
-                                        content: const Text(
-                                            "Please insert an image to form the text!"),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            child: const Text("Ok"),
-                                            onPressed: () {
-                                              Navigator.of(context).pop("Ok");
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  }
-                                },
-                              ),
-                              const SizedBox(width: 10),
-                              ElevatedButton(
-                                style: RaisedButtonStyle,
-                                child: const Text("Space"),
-                                onPressed: () {
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 30,
+            ),
+            isImageLoaded
+                ? Center(
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 200,
+                          width: 200,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: FileImage(File(pickedImage.path)),
+                                  fit: BoxFit.contain)),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          "Detected Letter: $detected",
+                          style: const TextStyle(fontSize: 25.0),
+                        ),
+                        Text(
+                          "Confidence: $confidence",
+                          style: const TextStyle(fontSize: 25.0),
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                              style: RaisedButtonStyle,
+                              child: const Text("Backspace"),
+                              onPressed: () {
+                                if (sentence.isNotEmpty) {
                                   setState(() {
-                                    sentence = sentence + " ";
+                                    sentence = sentence.substring(
+                                        0, sentence.length - 1);
                                   });
-                                },
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          const Text(
-                            "Formed Word: \n ",
-                            style: TextStyle(
-                                fontSize: 30.0, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            sentence,
-                            style: const TextStyle(fontSize: 20.0),
-                          )
-                        ],
-                      ),
-                    )
-                  : Center(
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            "assets/img/signalator.png",
-                            height: 250,
-                            width: 250,
-                          ),
-                          const SizedBox(
-                            height: 50,
-                          ),
-                          const Text(
-                            "Pick Image To Translate",
-                            style: TextStyle(
-                                fontSize: 30.0, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
+                                } else {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text("Blank Text"),
+                                      content: const Text(
+                                          "Please insert an image to form the text!"),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: const Text("Ok"),
+                                          onPressed: () {
+                                            Navigator.of(context).pop("Ok");
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                            const SizedBox(width: 10),
+                            ElevatedButton(
+                              style: RaisedButtonStyle,
+                              child: const Text("Space"),
+                              onPressed: () {
+                                setState(() {
+                                  sentence = sentence + " ";
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const Text(
+                          "Formed Word: \n ",
+                          style: TextStyle(
+                              fontSize: 30.0, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          sentence,
+                          style: const TextStyle(fontSize: 20.0),
+                        )
+                      ],
                     ),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    style: RaisedButtonStyle,
-                    child: const Text("Clear Text"),
-                    onPressed: () {
-                      setState(() {
-                        sentence = "";
-                      });
-                    },
+                  )
+                : Center(
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          "assets/img/signalator.png",
+                          height: 250,
+                          width: 250,
+                        ),
+                        const SizedBox(
+                          height: 50,
+                        ),
+                        const Text(
+                          "Pick Image To Translate",
+                          style: TextStyle(
+                              fontSize: 30.0, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ),
-                  ElevatedButton(
-                    style: RaisedButtonStyle,
-                    child: const Text("Save Text"),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            ],
-          ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  style: RaisedButtonStyle,
+                  child: const Text("Clear Text"),
+                  onPressed: () {
+                    setState(() {
+                      sentence = "";
+                    });
+                  },
+                ),
+                ElevatedButton(
+                  style: RaisedButtonStyle,
+                  child: const Text("Save Text"),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
