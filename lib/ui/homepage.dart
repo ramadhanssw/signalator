@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:signalator/ui/profilepage.dart';
+import 'package:signalator/widget/card_translator.dart';
 import 'package:signalator/widget/card_widget.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -16,9 +17,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Signalator"),
+        backgroundColor: Color(0xFF1A244C),
         actions: <Widget>[
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.account_circle,
               color: Colors.white,
             ),
@@ -26,7 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ProfileScreen(),
+                  builder: (context) => const ProfileScreen(),
                 ),
               );
             },
@@ -38,11 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[
             SizedBox(height: 10),
-            cardWidget(
-              name: "Sign Languange Translator",
-              pictureUrl:
-                  "https://images.unsplash.com/photo-1502159212845-f31a19546a5d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-            ),
+            cardTranslator(),
             SizedBox(height: 8),
             cardWidget(
               name: "Sign Languange Dictionary",

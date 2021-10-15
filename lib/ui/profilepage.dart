@@ -2,8 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:signalator/authentication/loginscreen.dart';
+import 'package:signalator/ui/infopage.dart';
 
 class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
+
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -21,7 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Color(0xFF1A244C),
+        backgroundColor: const Color(0xFF1A244C),
       ),
       body: Stack(
         alignment: Alignment.center,
@@ -39,102 +42,150 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Container(
                 height: 400,
                 width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    const Text(
+                      "General",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Color(0xFF1A244C),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "About Us",
+                                style: TextStyle(color: Colors.grey.shade900),
+                              ),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.info,
+                                  color: Color(0xFF1A244C),
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const InfoPage(),
+                                    ),
+                                  );
+                                },
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
                       height: 15,
                     ),
                     Text(
-                      "Your Logged as \n${currentUser!.email}",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 20,
+                      "Account: ${currentUser!.email}",
+                      textAlign: TextAlign.left,
+                      style: const TextStyle(
+                        fontSize: 15,
                         color: Color(0xFF1A244C),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(
-                      height: 20,
+                    const SizedBox(
+                      height: 5,
                     ),
-                    Text(
-                      "Are you want to change password?",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Color(0xFF1A244C),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Container(
-                      height: 50,
-                      padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
-                      child: ElevatedButton(
-                        style: raisedButtonStyle,
-                        child: Text("Update Password"),
-                        onPressed: () async {
-                          if (currentUser!.email!.isNotEmpty) {
-                            await _firebaseAuth.sendPasswordResetEmail(
-                                email: currentUser!.email!);
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: Text("Update Password"),
-                                content: Text(
-                                    "Already sent to ${currentUser!.email} \nCheck your email"),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: Text("Ok"),
-                                    onPressed: () {
-                                      Navigator.of(context).pop("Ok");
-                                    },
-                                  ),
-                                ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Change Password",
+                                style: TextStyle(color: Colors.grey.shade900),
                               ),
-                            );
-                          } else {
-                            showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: Text("Error"),
-                                content: Text("There is an error"),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: Text("Ok"),
-                                    onPressed: () {
-                                      Navigator.of(context).pop("Ok");
-                                    },
-                                  ),
-                                ],
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.security_rounded,
+                                  color: Color(0xFF1A244C),
+                                ),
+                                onPressed: () async {
+                                  if (currentUser!.email!.isNotEmpty) {
+                                    await _firebaseAuth.sendPasswordResetEmail(
+                                        email: currentUser!.email!);
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        title: const Text("Update Password"),
+                                        content: Text(
+                                            "Already sent to ${currentUser!.email} \nCheck your email"),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            child: const Text("Ok"),
+                                            onPressed: () {
+                                              Navigator.of(context).pop("Ok");
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  } else {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        title: const Text("Error"),
+                                        content:
+                                            const Text("There is an error"),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            child: const Text("Ok"),
+                                            onPressed: () {
+                                              Navigator.of(context).pop("Ok");
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }
+                                },
+                              )
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Sign Out",
+                                style: TextStyle(color: Colors.grey.shade900),
                               ),
-                            );
-                          }
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      "Change Account",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Color(0xFF1A244C),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Container(
-                      height: 50,
-                      padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
-                      child: ElevatedButton(
-                        style: raisedButtonStyle,
-                        child: Text("Logout"),
-                        onPressed: () {
-                          _SignOut().then((value) => Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                                  builder: (context) => LoginScreen())));
-                        },
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.exit_to_app_rounded,
+                                  color: Color(0xFF1A244C),
+                                ),
+                                onPressed: () {
+                                  _SignOut().then((value) =>
+                                      Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const LoginScreen())));
+                                },
+                              )
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -145,10 +196,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.all(20),
                 child: Text(
-                  "Profile Account",
+                  "Settings",
                   style: TextStyle(
                     fontSize: 35,
                     letterSpacing: 1.5,
@@ -158,16 +209,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(10.0),
                 width: MediaQuery.of(context).size.width / 2,
                 height: MediaQuery.of(context).size.width / 2,
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.white, width: 5),
                     shape: BoxShape.circle,
                     color: Colors.white,
-                    image: DecorationImage(
+                    image: const DecorationImage(
                       fit: BoxFit.cover,
-                      image: AssetImage('assets/img/kokiku.jpg'),
+                      image: AssetImage('assets/img/signalator.png'),
                     )),
               )
             ],
@@ -181,7 +232,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 class HeaderCurvedContainer extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()..color = Color(0xFF1A244C);
+    Paint paint = Paint()..color = const Color(0xFF1A244C);
     Path path = Path()
       ..relativeLineTo(0, 150)
       ..quadraticBezierTo(size.width / 2, 225, size.width, 150)
@@ -193,13 +244,3 @@ class HeaderCurvedContainer extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
-
-final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
-  onPrimary: Colors.white,
-  primary: Colors.blue[900],
-  minimumSize: Size(88, 36),
-  padding: EdgeInsets.symmetric(horizontal: 16),
-  shape: const RoundedRectangleBorder(
-    borderRadius: BorderRadius.all(Radius.circular(6)),
-  ),
-);

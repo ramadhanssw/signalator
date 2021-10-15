@@ -28,8 +28,7 @@ class cardWidget extends StatelessWidget {
                     const ColorFilter.mode(Colors.grey, BlendMode.modulate),
                 child: InkWell(
                   onTap: () {
-                    if (name == "Sign Languange Translator") {
-                    } else if (name == "Sign Languange Dictionary") {
+                    if (name == "Sign Languange Dictionary") {
                       Navigator.push(
                         context,
                         MaterialPageRoute(

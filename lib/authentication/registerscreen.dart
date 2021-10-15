@@ -27,7 +27,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Image.asset(
-                "assets/logo/signalator.jpg",
+                "assets/img/signalator.png",
                 height: 150,
                 width: 150,
               ),

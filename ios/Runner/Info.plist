@@ -30,6 +30,8 @@
 	<string>Speech Recongnition is required</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Microphone is required to record audio</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Can I use the camera please?</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

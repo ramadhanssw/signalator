@@ -14,6 +14,7 @@ class _dictionaryPageState extends State<dictionaryPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Sign Language Dictionary'),
+        backgroundColor: Color(0xFF1A244C),
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
