@@ -1,5 +1,8 @@
 import 'package:camera/camera.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:signalator/ui/signlanguagetranslator/historysigntranslator.dart';
 import 'package:signalator/widget/raisedbutton.dart';
 import 'package:tflite/tflite.dart';
 
@@ -11,6 +14,8 @@ class CameraScreen extends StatefulWidget {
 }
 
 class _CameraScreenState extends State<CameraScreen> {
+  final currentUser = FirebaseAuth.instance.currentUser;
+
   bool isWorking = false;
   late CameraController controller;
   late List<CameraDescription> cameras;
@@ -107,6 +112,8 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   Widget cameraPreview() {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference signHistory = firestore.collection("signHistory");
     if (controller == null || !controller.value.isInitialized) {
       return Center(
         child: Column(
@@ -197,7 +204,35 @@ class _CameraScreenState extends State<CameraScreen> {
                   ElevatedButton(
                     style: RaisedButtonStyle,
                     child: const Text("Save Text"),
-                    onPressed: () {},
+                    onPressed: () {
+                      if (sentence.isNotEmpty) {
+                        signHistory.add({
+                          "email": currentUser!.email,
+                          "text": sentence,
+                          "detail": "Saved from image detection"
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text(
+                                'You have successfully saved this text into history')));
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text("Save Text Problem"),
+                            content: const Text(
+                                "Can\'t save because it doesn\'t translate to text"),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text("Ok"),
+                                onPressed: () {
+                                  Navigator.of(context).pop("Ok");
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                    },
                   ),
                 ],
               ),
@@ -206,15 +241,40 @@ class _CameraScreenState extends State<CameraScreen> {
                 color: Colors.white.withOpacity(0.7),
                 child: Padding(
                   padding: const EdgeInsets.all(10),
-                  child: Text(
-                    "Formed Text:\n" + sentence,
-                    style: const TextStyle(
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Formed Text:",
+                        style: TextStyle(
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Text(
+                        sentence,
+                        style: const TextStyle(
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
+              ),
+              const SizedBox(height: 5),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const signHistoryPage(),
+                    ),
+                  );
+                },
+                child: const Text("See History"),
               ),
             ],
           ),

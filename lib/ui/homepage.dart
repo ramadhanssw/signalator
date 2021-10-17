@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:signalator/ui/profilepage.dart';
+import 'package:signalator/ui/profilepage/profilepage.dart';
 import 'package:signalator/widget/card_translator.dart';
 import 'package:signalator/widget/card_widget.dart';
 
@@ -40,10 +40,16 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[
             SizedBox(height: 10),
-            cardTranslator(),
+            cardTranslator(
+              name: "Sign Languange Translator",
+              detail: "Pick From Image",
+              pictureUrl:
+                  "https://images.unsplash.com/photo-1502159212845-f31a19546a5d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
+            ),
             SizedBox(height: 8),
-            cardWidget(
+            cardTranslator(
               name: "Sign Languange Dictionary",
+              detail: "Translate To Sign",
               pictureUrl:
                   "https://images.unsplash.com/photo-1524639064490-254e0a1db723?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
             ),

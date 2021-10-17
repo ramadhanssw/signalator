@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:signalator/ui/signcamerapage.dart';
-import 'package:signalator/ui/signpickerpage.dart';
+import 'package:signalator/ui/signlanguagedictionary/dictionarypage.dart';
+import 'package:signalator/ui/signlanguagedictionary/historysignlanguage.dart';
+import 'package:signalator/ui/signlanguagetranslator/historysigntranslator.dart';
+import 'package:signalator/ui/signlanguagetranslator/signcamerapage.dart';
+import 'package:signalator/ui/signlanguagetranslator/signpickerpage.dart';
+import 'package:signalator/ui/signlanguagedictionary/signtranslate.dart';
 
 class cardTranslator extends StatelessWidget {
-  const cardTranslator({Key? key}) : super(key: key);
+  final String name;
+  final String pictureUrl;
+  final String detail;
+
+  const cardTranslator(
+      {Key? key,
+      required this.name,
+      required this.pictureUrl,
+      required this.detail})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,26 +31,34 @@ class cardTranslator extends StatelessWidget {
             alignment: Alignment.center,
             children: [
               Ink.image(
-                image: const NetworkImage(
-                    "https://images.unsplash.com/photo-1502159212845-f31a19546a5d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"),
+                image: NetworkImage(pictureUrl),
                 colorFilter:
                     const ColorFilter.mode(Colors.grey, BlendMode.modulate),
                 child: InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const CameraScreen(),
-                      ),
-                    );
+                    if (name == "Sign Languange Translator") {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const CameraScreen(),
+                        ),
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const dictionaryPage(),
+                        ),
+                      );
+                    }
                   },
                 ),
                 height: MediaQuery.of(context).size.height * 0.3,
                 fit: BoxFit.cover,
               ),
-              const Text(
-                "Sign Languange Translator",
-                style: TextStyle(
+              Text(
+                name,
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                   fontSize: 20.0,
@@ -52,23 +73,32 @@ class cardTranslator extends StatelessWidget {
                 children: [
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PickerScreen(),
-                        ),
-                      );
+                      if (name == "Sign Languange Translator") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PickerScreen(),
+                          ),
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const translateToSign(),
+                          ),
+                        );
+                      }
                     },
                     child: Row(
-                      children: const [
+                      children: [
                         Icon(
-                          Icons.image,
+                          Icons.translate,
                           color: Colors.black,
                         ),
-                        SizedBox(width: 5),
+                        const SizedBox(width: 5),
                         Text(
-                          "Pick From Image",
-                          style: TextStyle(color: Colors.black),
+                          detail,
+                          style: const TextStyle(color: Colors.black),
                         ),
                       ],
                     ),
@@ -79,7 +109,24 @@ class cardTranslator extends StatelessWidget {
                 alignment: MainAxisAlignment.start,
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (name == "Sign Languange Translator") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const signHistoryPage(),
+                          ),
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const signLanguageHistoryPage(),
+                          ),
+                        );
+                      }
+                    },
                     child: Row(
                       children: const [
                         Icon(

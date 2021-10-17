@@ -1,5 +1,10 @@
+// ignore_for_file: unnecessary_string_escapes
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:highlight_text/highlight_text.dart';
+import 'package:signalator/ui/speechtotext/stthistorypage.dart';
 import 'package:signalator/widget/raisedbutton.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:avatar_glow/avatar_glow.dart';
@@ -12,6 +17,8 @@ class sttPage extends StatefulWidget {
 }
 
 class _sttPageState extends State<sttPage> {
+  final currentUser = FirebaseAuth.instance.currentUser;
+  bool alreadyPress = false;
   final Map<String, HighlightedWord> _highlights = {
     'signalator': HighlightedWord(
       onTap: () => print('signalator'),
@@ -24,7 +31,7 @@ class _sttPageState extends State<sttPage> {
 
   late stt.SpeechToText _speech;
   bool _isListening = false;
-  String _text = 'Press the button and start speaking';
+  String _text = 'Please, press the button to start the speaking!';
   double _confidence = 1.0;
 
   @override
@@ -35,6 +42,8 @@ class _sttPageState extends State<sttPage> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference sttHistory = firestore.collection("sttHistory");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Speech To Text"),
@@ -65,18 +74,57 @@ class _sttPageState extends State<sttPage> {
                 child: const Text("Clear Text"),
                 onPressed: () {
                   setState(() {
-                    _text = "Press the button and start speaking";
+                    _text = "Please, press the button to start the speaking!";
                   });
                 },
               ),
               ElevatedButton(
                 style: RaisedButtonStyle,
                 child: const Text("Save Text"),
-                onPressed: () {},
+                onPressed: () {
+                  if (_text !=
+                      "Please, press the button to start the speaking!") {
+                    sttHistory.add({
+                      "email": currentUser!.email,
+                      "text": _text,
+                      "language": "en-US",
+                    });
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text(
+                            'You have successfully saved this text into history')));
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text("Save Text Problem"),
+                        content: const Text(
+                            "Can\'t save because it doesn\'t translate to text"),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text("Ok"),
+                            onPressed: () {
+                              Navigator.of(context).pop("Ok");
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                },
               ),
             ],
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 5),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const sttHistoryPage()),
+              );
+            },
+            child: const Text("See History"),
+          ),
+          const SizedBox(height: 10),
         ],
       ),
       body: Column(

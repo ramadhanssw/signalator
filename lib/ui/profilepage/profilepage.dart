@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:signalator/authentication/loginscreen.dart';
-import 'package:signalator/ui/infopage.dart';
+import 'package:signalator/ui/profilepage/infopage.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -94,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 15,
                     ),
                     Text(
-                      "Account: ${currentUser!.email}",
+                      "Logged As: ${currentUser!.email}",
                       textAlign: TextAlign.left,
                       style: const TextStyle(
                         fontSize: 15,
@@ -199,7 +199,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const Padding(
                 padding: EdgeInsets.all(20),
                 child: Text(
-                  "Settings",
+                  "Account",
                   style: TextStyle(
                     fontSize: 35,
                     letterSpacing: 1.5,

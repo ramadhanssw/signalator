@@ -32,7 +32,7 @@ class _dictionaryPageState extends State<dictionaryPage> {
               child: Column(
                 children: [
                   Image.asset(
-                    "assets/img/sign-alphabet/${alphabet[index]}.png",
+                    "assets/img/sign-alphabet/s${alphabet[index]}.png",
                     fit: BoxFit.cover,
                   ),
                   const SizedBox(height: 10),

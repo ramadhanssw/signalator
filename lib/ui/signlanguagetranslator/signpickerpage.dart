@@ -1,7 +1,12 @@
+// ignore_for_file: unnecessary_string_escapes
+
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:signalator/ui/signlanguagetranslator/historysigntranslator.dart';
 import 'package:signalator/widget/raisedbutton.dart';
 import 'package:tflite/tflite.dart';
 
@@ -11,6 +16,7 @@ class PickerScreen extends StatefulWidget {
 }
 
 class _PickerScreenState extends State<PickerScreen> {
+  final currentUser = FirebaseAuth.instance.currentUser;
   late File pickedImage;
   bool isImageLoaded = false;
   late List result;
@@ -95,6 +101,8 @@ class _PickerScreenState extends State<PickerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference signHistory = firestore.collection("signHistory");
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sign Language Translator'),
@@ -224,9 +232,49 @@ class _PickerScreenState extends State<PickerScreen> {
                 ElevatedButton(
                   style: RaisedButtonStyle,
                   child: const Text("Save Text"),
-                  onPressed: () {},
+                  onPressed: () {
+                    if (sentence.isNotEmpty) {
+                      signHistory.add({
+                        "email": currentUser!.email,
+                        "text": sentence,
+                        "detail": "Saved from image picker"
+                      });
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text(
+                              'You have successfully saved this text into history')));
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text("Save Text Problem"),
+                          content: const Text(
+                              "Can\'t save because it doesn\'t translate to text"),
+                          actions: <Widget>[
+                            TextButton(
+                              child: const Text("Ok"),
+                              onPressed: () {
+                                Navigator.of(context).pop("Ok");
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  },
                 ),
               ],
+            ),
+            const SizedBox(height: 10),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const signHistoryPage(),
+                  ),
+                );
+              },
+              child: const Text("See History"),
             ),
           ],
         ),

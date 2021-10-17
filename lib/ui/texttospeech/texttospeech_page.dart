@@ -1,5 +1,12 @@
+// ignore_for_file: unnecessary_string_escapes
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:signalator/ui/homepage.dart';
+import 'package:signalator/ui/texttospeech/ttshistorypage.dart';
+
 import 'package:signalator/widget/audiovisualizer.dart';
 import 'package:signalator/widget/raisedbutton.dart';
 
@@ -13,10 +20,15 @@ class ttsPage extends StatefulWidget {
 class _ttsPageState extends State<ttsPage> {
   final FlutterTts flutterTts = FlutterTts();
   final TextEditingController _textEditingController = TextEditingController();
+  final currentUser = FirebaseAuth.instance.currentUser;
   String dropdownValue = 'English-US';
+  String savedLanguage = "en-US";
 
   @override
   Widget build(BuildContext context) {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference ttsHistory = firestore.collection("ttsHistory");
+
     Future _speak(String text, String language) async {
       await flutterTts.setLanguage(language);
       await flutterTts.setPitch(1);
@@ -59,19 +71,20 @@ class _ttsPageState extends State<ttsPage> {
                       child: const Icon(Icons.speaker),
                       onPressed: () {
                         if (_textEditingController.text.isNotEmpty) {
-                          String languange = "en-US";
+                          String language = "en-US";
                           if (dropdownValue == "Indonesian") {
-                            languange = "id-ID";
+                            language = "id-ID";
                           } else if (dropdownValue == "English-UK") {
-                            languange = "en-UK";
+                            language = "en-UK";
                           } else if (dropdownValue == "Javanese") {
-                            languange = "jv-ID";
+                            language = "jv-ID";
                           } else if (dropdownValue == "Sundanese") {
-                            languange = "su-ID";
+                            language = "su-ID";
                           } else {
-                            languange = "en-US";
+                            language = "en-US";
                           }
-                          _speak(_textEditingController.text, languange);
+                          savedLanguage = language;
+                          _speak(_textEditingController.text, language);
                         } else {
                           showDialog(
                             context: context,
@@ -155,9 +168,50 @@ class _ttsPageState extends State<ttsPage> {
                       ElevatedButton(
                         style: RaisedButtonStyle,
                         child: const Text("Save Text"),
-                        onPressed: () {},
+                        onPressed: () {
+                          if (_textEditingController.text.isNotEmpty) {
+                            ttsHistory.add({
+                              "email": currentUser!.email,
+                              "text": _textEditingController.text,
+                              "language": savedLanguage,
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text(
+                                        'You have successfully saved this text into history')));
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text("Save Text Problem"),
+                                content: const Text(
+                                    "Can\'t save because it doesn\'t translate to text"),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: const Text("Ok"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop("Ok");
+                                    },
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                        },
                       ),
                     ],
+                  ),
+                  const SizedBox(height: 10),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MyHomePage(),
+                        ),
+                      );
+                    },
+                    child: const Text("See History"),
                   ),
                 ],
               ),

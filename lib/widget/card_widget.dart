@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:signalator/ui/dictionarypage.dart';
-import 'package:signalator/ui/spechtotext_page.dart';
-import 'package:signalator/ui/texttospeech_page.dart';
+import 'package:signalator/ui/speechtotext/spechtotext_page.dart';
+import 'package:signalator/ui/speechtotext/stthistorypage.dart';
+import 'package:signalator/ui/texttospeech/texttospeech_page.dart';
+import 'package:signalator/ui/texttospeech/ttshistorypage.dart';
 
 class cardWidget extends StatelessWidget {
-  final String name;
-  final String pictureUrl;
+  final name;
+  final pictureUrl;
 
   const cardWidget({Key? key, required this.name, required this.pictureUrl})
       : super(key: key);
@@ -28,21 +29,14 @@ class cardWidget extends StatelessWidget {
                     const ColorFilter.mode(Colors.grey, BlendMode.modulate),
                 child: InkWell(
                   onTap: () {
-                    if (name == "Sign Languange Dictionary") {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const dictionaryPage(),
-                        ),
-                      );
-                    } else if (name == "Text To Speech") {
+                    if (name == "Text To Speech") {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const ttsPage(),
                         ),
                       );
-                    } else if (name == "Speech To Text") {
+                    } else {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -69,7 +63,23 @@ class cardWidget extends StatelessWidget {
             alignment: MainAxisAlignment.start,
             children: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (name == "Text To Speech") {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ttsHistoryPage(),
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const sttHistoryPage(),
+                      ),
+                    );
+                  }
+                },
                 child: Row(
                   children: const [
                     Icon(
