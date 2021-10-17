@@ -1,16 +1,7 @@
 # signalator
 
-A new Flutter project.
+An Flutter project by Ramadhan Sanyoto S.W..
 
-## Getting Started
+## What is Signalator?
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Signalator is an application that makes it easy for people with disabilities to communicate with other people. This application has various features such as being able to detect photos and images of sign language, translating text into voice, translating voice into text, and various other features. Signalator application made by Ramadhan Sanyoto SW, assistant candidate for Lab B401 Multimedia Computing, Computer Engineering at ITS.
