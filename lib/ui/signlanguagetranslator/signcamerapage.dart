@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_string_escapes
+
 import 'package:camera/camera.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -53,43 +55,36 @@ class _CameraScreenState extends State<CameraScreen> {
             });
           });
         });
-      } else {
-        print('camera error');
-      }
-    }).catchError((e) {
-      print(e.code);
-    });
+      } else {}
+    }).catchError((e) {});
   }
 
   runModelOnStreamFrames() async {
-    if (imgCamera != null) {
-      var recognitions = await Tflite.runModelOnFrame(
-          bytesList: imgCamera.planes.map((plane) {
-            return plane.bytes;
-          }).toList(),
-          imageHeight: imgCamera.height,
-          imageWidth: imgCamera.width,
-          imageMean: 127.5,
-          imageStd: 127.5,
-          numResults: 1,
-          threshold: 0.6,
-          asynch: true);
+    var recognitions = await Tflite.runModelOnFrame(
+        bytesList: imgCamera.planes.map((plane) {
+          return plane.bytes;
+        }).toList(),
+        imageHeight: imgCamera.height,
+        imageWidth: imgCamera.width,
+        imageMean: 127.5,
+        imageStd: 127.5,
+        numResults: 1,
+        threshold: 0.6,
+        asynch: true);
 
-      recognitions?.forEach((response) {
-        label = response["label"];
-        name = label.substring(2, label.length);
-        confidence =
-            ((response["confidence"] as double) * 100).toStringAsFixed(1) +
-                " %";
+    recognitions?.forEach((response) {
+      label = response["label"];
+      name = label.substring(2, label.length);
+      confidence =
+          ((response["confidence"] as double) * 100).toStringAsFixed(1) + " %";
+    });
+
+    if (mounted) {
+      setState(() {
+        //return result;
       });
-
-      if (mounted) {
-        setState(() {
-          //return result;
-        });
-      }
-      isWorking = false;
     }
+    isWorking = false;
   }
 
   @override

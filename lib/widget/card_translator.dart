@@ -91,7 +91,7 @@ class cardTranslator extends StatelessWidget {
                     },
                     child: Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.translate,
                           color: Colors.black,
                         ),

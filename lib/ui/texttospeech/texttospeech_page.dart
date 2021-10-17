@@ -1,12 +1,8 @@
-// ignore_for_file: unnecessary_string_escapes
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:signalator/ui/homepage.dart';
-import 'package:signalator/ui/texttospeech/ttshistorypage.dart';
-
 import 'package:signalator/widget/audiovisualizer.dart';
 import 'package:signalator/widget/raisedbutton.dart';
 
@@ -185,7 +181,7 @@ class _ttsPageState extends State<ttsPage> {
                               builder: (context) => AlertDialog(
                                 title: const Text("Save Text Problem"),
                                 content: const Text(
-                                    "Can\'t save because it doesn\'t translate to text"),
+                                    "Can't save because it doesn't translate to text"),
                                 actions: <Widget>[
                                   TextButton(
                                     child: const Text("Ok"),
