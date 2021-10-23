@@ -1,4 +1,4 @@
-# signalator
+# Signalator
 
 An Flutter project by Ramadhan Sanyoto S.W..
 

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:signalator/ui/homepage.dart';
+import 'package:signalator/ui/texttospeech/ttshistorypage.dart';
 import 'package:signalator/widget/audiovisualizer.dart';
 import 'package:signalator/widget/raisedbutton.dart';
 
@@ -203,7 +204,7 @@ class _ttsPageState extends State<ttsPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const MyHomePage(),
+                          builder: (context) => const ttsHistoryPage(),
                         ),
                       );
                     },

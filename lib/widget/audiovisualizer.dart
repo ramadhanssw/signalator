@@ -37,7 +37,7 @@ class AudioVisualizer extends StatefulWidget {
 }
 
 class _AudioVisualizerState extends State<AudioVisualizer>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   late Animation<double> animation;
   late AnimationController animationController;
 
@@ -62,7 +62,17 @@ class _AudioVisualizerState extends State<AudioVisualizer>
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Container(
       width: 10,
       height: animation.value,

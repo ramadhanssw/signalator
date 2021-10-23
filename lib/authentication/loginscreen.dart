@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:signalator/authentication/registerscreen.dart';
 import 'package:signalator/ui/homepage.dart';
+import 'dart:async';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -11,6 +12,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final currentUser = FirebaseAuth.instance.currentUser;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -18,6 +20,12 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
+    Timer(const Duration(milliseconds: 1), () {
+      if (currentUser!.email!.isNotEmpty) {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => const MyHomePage()));
+      }
+    });
   }
 
   @override
