@@ -77,7 +77,7 @@ class cardTranslator extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => PickerScreen(),
+                            builder: (context) => const PickerScreen(),
                           ),
                         );
                       } else {

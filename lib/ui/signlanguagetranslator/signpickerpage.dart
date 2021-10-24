@@ -11,6 +11,8 @@ import 'package:signalator/widget/raisedbutton.dart';
 import 'package:tflite/tflite.dart';
 
 class PickerScreen extends StatefulWidget {
+  const PickerScreen({Key? key}) : super(key: key);
+
   @override
   _PickerScreenState createState() => _PickerScreenState();
 }
@@ -83,7 +85,6 @@ class _PickerScreenState extends State<PickerScreen> {
     var resultant = await Tflite.loadModel(
         model: "assets/tflite/model_unquant.tflite",
         labels: "assets/tflite/labels.txt");
-
     print('status load model: $resultant');
   }
 
