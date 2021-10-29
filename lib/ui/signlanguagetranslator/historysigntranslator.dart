@@ -25,7 +25,7 @@ class _signHistoryPageState extends State<signHistoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Text To Sign History'),
+        title: const Text('Sign To Text History'),
         backgroundColor: const Color(0xFF1A244C),
       ),
       body: StreamBuilder(

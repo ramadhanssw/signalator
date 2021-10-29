@@ -9,7 +9,7 @@ class signHistoryTranslator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Text To Sign in History'),
+        title: const Text('Text To Sign From History'),
         backgroundColor: const Color(0xFF1A244C),
       ),
       body: ListView.builder(
