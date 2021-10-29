@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:signalator/ui/signlanguagedictionary/signhistorytranslate.dart';
+import 'package:signalator/ui/signlanguagetranslator/signtranslate.dart';
 
 class signLanguageHistoryPage extends StatefulWidget {
   const signLanguageHistoryPage({Key? key}) : super(key: key);
@@ -13,11 +13,11 @@ class signLanguageHistoryPage extends StatefulWidget {
 
 class _signLanguageHistoryPageState extends State<signLanguageHistoryPage> {
   final currentUser = FirebaseAuth.instance.currentUser;
-  CollectionReference signTranslatorHistory =
+  CollectionReference signHistory =
       FirebaseFirestore.instance.collection("signTranslatorHistory");
 
   Future<void> _deleteHistory(String historyId) async {
-    await signTranslatorHistory.doc(historyId).delete();
+    await signHistory.doc(historyId).delete();
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('You have successfully deleted a history')));
   }
@@ -26,11 +26,11 @@ class _signLanguageHistoryPageState extends State<signLanguageHistoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Text To Sign History'),
+        title: const Text('Translate To Sign History'),
         backgroundColor: const Color(0xFF1A244C),
       ),
       body: StreamBuilder(
-        stream: signTranslatorHistory
+        stream: signHistory
             .where("email", isEqualTo: currentUser!.email)
             .snapshots(),
         builder: (BuildContext context,
@@ -56,7 +56,7 @@ class _signLanguageHistoryPageState extends State<signLanguageHistoryPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => signHistoryTranslator(
+                                    builder: (context) => signTranslatorHistory(
                                         signText: documentSnapshot['text']
                                             .toString()
                                             .toLowerCase()),

@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_string_escapes
-
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';

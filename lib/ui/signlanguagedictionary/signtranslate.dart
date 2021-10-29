@@ -139,7 +139,7 @@ class _translateToSignState extends State<translateToSign> {
                     onPressed: () {
                       bool reminder = false;
                       String checker =
-                          "1234567890!@#%^&*()-=_+;:'\",<.>/?`~{[}]| ";
+                          "1234567890!@#%^&*()-=_+;:'\",<.>/?`~{[}]|";
                       for (var i = 0; i < checker.length; i++) {
                         if (_textEditingController.text.contains(checker[i])) {
                           reminder = true;
